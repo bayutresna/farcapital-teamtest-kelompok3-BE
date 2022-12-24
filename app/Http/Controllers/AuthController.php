@@ -9,12 +9,10 @@ class AuthController extends Controller
 {
     function login(Request $req)
     {
-        $email = $req->input('email');
-
-
+    // ngambil data dari inputan user
         $email = $req->input('email');
         $password = $req->input('password');
-
+        // mencari data user berdasarkan email
         $user = User::query()->where('email', $email)->first();
 
         if ($user == null) {
