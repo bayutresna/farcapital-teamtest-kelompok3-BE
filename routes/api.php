@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AspirasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/admin/list', [AdminController::class, 'index']);
-Route::get('/admin/{id}/show', [AdminController::class, 'show']);
-Route::post('/admin/store', [AdminController::class, 'store']);
-Route::post('/admin/{id}/update', [AdminController::class, 'update']);
-Route::post('/admin/{id}/delete', [AdminController::class, 'destroy']);
+Route::get('/admin/list', [UserController::class, 'index']);
+Route::get('/admin/{id}/show', [UserController::class, 'show']);
+Route::post('/admin/store', [UserController::class, 'store']);
+Route::post('/admin/{id}/update', [UserController::class, 'update']);
+Route::post('/admin/{id}/delete', [UserController::class, 'destroy']);
 
 Route::get('/aspirasi/list', [AspirasiController::class, 'index']);
 Route::get('/aspirasi/{id}/show', [AspirasiController::class, 'show']);
