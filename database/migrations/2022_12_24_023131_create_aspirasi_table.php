@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("email");
             $table->string("nik",20);
             $table->text('imgurl');
+            $table->tinyInteger('is_read')->nullable();
             $table->timestamps();
         });
     }
