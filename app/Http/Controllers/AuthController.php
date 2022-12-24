@@ -17,12 +17,10 @@ class AuthController extends Controller
         // mencari data user berdasarkan email
         $user = User::query()->where('email', $email)->first();
 
-        $userbyusername = User::query()->where('username', $email)->first();
-
-        if ($user == null && $userbyusername) {
+        if ($user == null) {
             return response()->json([
                 'status' => false,
-                'message' => 'email atau username salah',
+                'message' => 'email salah',
                 'data' => null
             ]);
         }

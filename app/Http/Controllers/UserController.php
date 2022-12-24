@@ -74,5 +74,10 @@ class UserController extends Controller
             ]);
         }
         $user->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'data dihapus',
+            'data'=> null
+        ]);
     }
 }
