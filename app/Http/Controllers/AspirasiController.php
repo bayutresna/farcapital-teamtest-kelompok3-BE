@@ -38,6 +38,7 @@ class AspirasiController extends Controller
 
     function store(Request $request)
     {
+        // mengambil data dari request
         $payload = $request->all();
         if (!isset($payload['judul'])) {
             return response()->json([
@@ -46,25 +47,40 @@ class AspirasiController extends Controller
                 "data" => null
             ]);
         }
-
+        // end ambil data dari request
         // ------------ tolong direvisi
-        if ($request->file("foto")) {
-            $payload['foto'] = $request->file('foto')->store('foto', 'public');
-            dd($payload['foto']);
+        $file = $request->file('foto');
+        if ($file) {
+
+            $filename = $file->hashName();
+            $file->move("aspirasi", $filename);
+            //pembuatan url foto
+            $path = $request->getSchemeAndHttpHost()."/aspirasi/".$filename;
+            //end pembuatan url foto
+
+            //untuk memasukan posisi foto pada storage
+            $path3 = $request->getSchemeAndHttpHost()."aspirasi/".$filename;
+            $path2 = str_replace($request->getSchemeAndHttpHost(),"",$path3);
+            //end memasukan posisi foto pada storage
+
         }
         //-------------endrevisi
-        $author = Aspirasi::query()->create($payload);
+
+        $payload['foto'] = $path;
+        $payload['imgurl'] = $path2;
+
+        $aspirasi = Aspirasi::query()->create($payload);
         return response()->json([
             "status" => true,
             "message" => "data tersimpan",
-            "data" => $author
+            "data" => $aspirasi
         ]);
     }
 
     function update(Request $request, $id)
     {
-        $author = Aspirasi::query()->where("id", $id)->first();
-        if (!isset($author)) {
+        $aspirasi = Aspirasi::query()->where("id", $id)->first();
+        if (!isset($aspirasi)) {
             return response()->json([
                 "status" => false,
                 "message" => "luru nopo mas?",
@@ -74,36 +90,50 @@ class AspirasiController extends Controller
 
         $payload = $request->all();
 
+        $file = $request->file('foto');
+        $temp = $aspirasi->imgurl;
 
-        // -------------tolong direvisi
-        if ($request->hasFile('foto')) {
+
+        if ($file) {
+
             $file = $request->file('foto');
-            $filename = $file->hashName();
-            $file->move('foto', $filename);
-            $path = $request->getSchemeAndHttpHost() . '/foto/' . $filename;
+            if ($file) {
+
+                $filename = $file->hashName();
+                $file->move("aspirasi", $filename);
+                //pembuatan url foto
+                $path = $request->getSchemeAndHttpHost()."/aspirasi/".$filename;
+                //end pembuatan url foto
+
+                //untuk memasukan posisi foto pada storage
+                $path3 = $request->getSchemeAndHttpHost()."aspirasi/".$filename;
+                $path2 = str_replace($request->getSchemeAndHttpHost(),"",$path3);
+                //end memasukan posisi foto pada storage
+
+            }
+
+
             $payload['foto'] = $path;
-
-            //file lama
-            $lokasifoto = str_replace($request->getSchemeAndHttpHost(), '', $author->foto);
-            $foto = public_path($lokasifoto);
-            unlink($foto);
+            $payload['imgurl'] = $path2;
+            unlink($temp);
         }
-        // --------------------endrevisi
 
-        $author->fill($payload);
-        $author->save();
+
+        $aspirasi->fill($payload);
+        $aspirasi->save();
 
         return response()->json([
             "status" => true,
             "message" => "perubahan data tersimpan",
-            "data" => $author
+            "data" => $aspirasi
         ]);
     }
 
     function destroy(Request $request, $id)
     {
-        $author = Aspirasi::query()->where("id", $id)->first();
-        if (!isset($author)) {
+        $aspirasi = Aspirasi::query()->where("id", $id)->first();
+
+        if (!isset($aspirasi)) {
             return response()->json([
                 "status" => false,
                 "message" => "data tidak ditemukan",
@@ -111,20 +141,16 @@ class AspirasiController extends Controller
             ]);
         }
 
-        //-------------tolong direvisi
-        if ($author->foto != '') {
-            $lokasigambar = str_replace($request->getSchemeAndHttpHost(), '', $author->foto);
-            $gambar = public_path($lokasigambar);
-            unlink($gambar);
-        }
-        // ----------------endrevisi
 
-        $author->delete();
+        unlink($aspirasi->imgurl);
+
+
+        $aspirasi->delete();
 
         return response()->json([
             "status" => true,
             "message" => "Data Terhapus",
-            "data" => $author
+            "data" => $aspirasi
         ]);
     }
 }

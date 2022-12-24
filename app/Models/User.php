@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
     use HasFactory;
     public $guarded = ['id'];
-    protected $table = 'admin';
+    protected $table = 'user';
 
     protected static function boot()
     {
