@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    
+
     function login(Request $req)
     {
     // ngambil data dari inputan user
@@ -17,10 +17,12 @@ class AuthController extends Controller
         // mencari data user berdasarkan email
         $user = User::query()->where('email', $email)->first();
 
-        if ($user == null) {
+        $userbyusername = User::query()->where('username', $email)->first();
+
+        if ($user == null && $userbyusername) {
             return response()->json([
                 'status' => false,
-                'message' => 'email salah',
+                'message' => 'email atau username salah',
                 'data' => null
             ]);
         }
@@ -36,6 +38,5 @@ class AuthController extends Controller
             'message' => '',
             'data' => $user
         ]);
-
     }
 }
