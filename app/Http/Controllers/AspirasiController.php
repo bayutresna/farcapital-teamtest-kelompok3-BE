@@ -49,11 +49,8 @@ class AspirasiController extends Controller
 
         // ------------ tolong direvisi
         if ($request->file("foto")) {
-            $file = $request->file("foto");
-            $filename = $file->hashName();
-            $file->move("foto", $filename);
-            $path = $request->getSchemeAndHttpHost() . "/foto/" . $filename;
-            $payload['foto'] =  $path;
+            $payload['foto'] = $request->file('foto')->store('foto', 'public');
+            dd($payload['foto']);
         }
         //-------------endrevisi
         $author = Aspirasi::query()->create($payload);
