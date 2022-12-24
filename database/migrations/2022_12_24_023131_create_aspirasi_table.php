@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text("foto");
             $table->string("judul",100);
             $table->string("email");
-            $table->tinyinteger("is_anonim");
+            $table->string("NIK",20);
             $table->timestamps();
         });
     }
