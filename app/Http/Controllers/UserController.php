@@ -54,7 +54,9 @@ class UserController extends Controller
         }
 
         $payload = $req->all();
-        $user->create($payload);
+
+        $user->fill($payload);
+        $user->save();
         return response()->json([
             'status' => true,
             'message' => 'data user telah diubah',
