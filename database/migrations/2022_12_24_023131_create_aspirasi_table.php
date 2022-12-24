@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("judul",100);
             $table->string("email");
             $table->string("nik",20);
+            $table->text('imgurl');
             $table->timestamps();
         });
     }

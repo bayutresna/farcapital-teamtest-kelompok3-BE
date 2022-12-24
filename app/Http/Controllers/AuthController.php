@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    
     function login(Request $req)
     {
     // ngambil data dari inputan user
