@@ -24,7 +24,7 @@ class AspirasiController extends Controller
         if (!isset($aspirasi)) {
             return response()->json([
                 "status" => false,
-                "message" => "luru nopo mas?",
+                "message" => "data tidak ditemukan",
                 "data" => null
             ]);
         }
@@ -55,12 +55,12 @@ class AspirasiController extends Controller
             $filename = $file->hashName();
             $file->move("aspirasi", $filename);
             //pembuatan url foto
-            $path = $request->getSchemeAndHttpHost()."/aspirasi/".$filename;
+            $path = $request->getSchemeAndHttpHost() . "/aspirasi/" . $filename;
             //end pembuatan url foto
 
             //untuk memasukan posisi foto pada storage
-            $path3 = $request->getSchemeAndHttpHost()."aspirasi/".$filename;
-            $path2 = str_replace($request->getSchemeAndHttpHost(),"",$path3);
+            $path3 = $request->getSchemeAndHttpHost() . "aspirasi/" . $filename;
+            $path2 = str_replace($request->getSchemeAndHttpHost(), "", $path3);
             //end memasukan posisi foto pada storage
 
         }
@@ -83,7 +83,7 @@ class AspirasiController extends Controller
         if (!isset($aspirasi)) {
             return response()->json([
                 "status" => false,
-                "message" => "luru nopo mas?",
+                "message" => "data tidak ditemukan",
                 "data" => null
             ]);
         }
@@ -102,12 +102,12 @@ class AspirasiController extends Controller
                 $filename = $file->hashName();
                 $file->move("aspirasi", $filename);
                 //pembuatan url foto
-                $path = $request->getSchemeAndHttpHost()."/aspirasi/".$filename;
+                $path = $request->getSchemeAndHttpHost() . "/aspirasi/" . $filename;
                 //end pembuatan url foto
 
                 //untuk memasukan posisi foto pada storage
-                $path3 = $request->getSchemeAndHttpHost()."aspirasi/".$filename;
-                $path2 = str_replace($request->getSchemeAndHttpHost(),"",$path3);
+                $path3 = $request->getSchemeAndHttpHost() . "aspirasi/" . $filename;
+                $path2 = str_replace($request->getSchemeAndHttpHost(), "", $path3);
                 //end memasukan posisi foto pada storage
 
             }

@@ -9,5 +9,5 @@ class Aspirasi extends Model
 {
     use HasFactory;
     public $guarded = ['id'];
-    protected $table = 'aspirasi';
+    protected $table = "aspirasi";
 }
