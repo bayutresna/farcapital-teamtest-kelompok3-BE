@@ -1,5 +1,9 @@
 <?php
 
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\AspirasiController;
+>>>>>>> ba3893b2a26974b88a1a6247cd49f5e8e69f677f
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
