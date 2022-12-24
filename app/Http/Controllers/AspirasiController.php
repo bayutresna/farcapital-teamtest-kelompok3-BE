@@ -9,7 +9,7 @@ class AspirasiController extends Controller
 {
     function index()
     {
-        $aspirasi = Aspirasi::query()->get();
+        $aspirasi = Aspirasi::query()->orderBy('created_at','desc')->get();
 
         return response()->json([
             "status" => true,
