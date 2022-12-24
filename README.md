@@ -17,3 +17,22 @@ DB_PORT=5432
 DB_DATABASE=nama_database_maneh
 DB_USERNAME=postgres
 DB_PASSWORD=password_maneh
+
+<!-- ------- -->
+use HasFactory;
+    public $guarded = ['id'];
+    protected $table = 'admin';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Admin $admin) {
+            $admin->password = Hash::make($admin->password);
+        });
+        static::updating(function (Admin $admin) {
+            if ($admin->isDirty(["password"])) {
+                $admin->password = Hash::make($admin->password);
+            }
+        });
+    }
